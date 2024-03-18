@@ -1,22 +1,31 @@
-import {Alert, Button, Keyboard, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View} from 'react-native';
+import {Button, Keyboard, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View} from 'react-native';
 import Checkbox from 'expo-checkbox';
 import {ReactElement, ReactNode, useState} from 'react';
+import {Input} from './Input/Input';
+import {globalStyles} from './global-styles';
+
 
 export default function App() {
     const [value, setValue] = useState('')
+    const [show, setShow] = useState(0)
+
     const [tasks, setTasks] = useState([
         {id: 1, title: 'HTML', isDone: true},
         {id: 2, title: 'CSS', isDone: true},
         {id: 3, title: 'JS', isDone: false},
-        {id: 3, title: 'React', isDone: true},
-        {id: 3, title: 'React Native', isDone: false}
+        {id: 4, title: 'React', isDone: true},
+        {id: 5, title: 'React Native', isDone: false}
     ])
-
     const addTask = () => {
-const newTask = {id: tasks.length +1, title: value, isDone: false}
+        const newTask = {id: tasks.length + 1, title: value, isDone: false}
         setTasks([...tasks, newTask])
         setValue('')
-        // Alert.alert(JSON.stringify(newTask))
+    }
+    const changeStatus = (taskId: number, status: boolean) => {
+        setTasks(tasks.map((task) => task.id === taskId ? {...task, isDone: status} : task))
+    }
+    const changeTitle = (taskId:number, title: string) =>{
+        setTasks(tasks.map((task) => task.id === taskId ? {...task, title: title} : task))
     }
     return (
         <View style={styles.container}>
@@ -31,9 +40,17 @@ const newTask = {id: tasks.length +1, title: value, isDone: false}
             <View style={{width: '60%'}}>
                 {tasks.map((task) => {
                     return <View key={task.id} style={[globalStyles.border, styles.taskWrapper]}>
-                        <Checkbox value={task.isDone} onValueChange={() => {
+                        <Checkbox value={task.isDone} onValueChange={(value) => {
+                            changeStatus(task.id, value)
                         }}/>
-                        <Text>{task.title}</Text>
+                        {show === task.id
+                            ? <Input
+                                id = {task.id}
+                                title={task.title}
+                                changeTitle={changeTitle}
+                                setShow = {setShow}
+                            />
+                            : <Text onPress={() => setShow(task.id)}>{task.title}</Text>}
                     </View>
                 })}
             </View>
@@ -41,7 +58,7 @@ const newTask = {id: tasks.length +1, title: value, isDone: false}
     );
 }
 
-const HideKeyboard = ({children}: { children: ReactNode }): ReactElement => (
+export const HideKeyboard = ({children}: { children: ReactNode }): ReactElement => (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         {children}
     </TouchableWithoutFeedback>
@@ -59,7 +76,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         fontSize: 18,
         padding: 4,
-        // marginBottom: 15,
     },
     taskWrapper: {
         flexDirection: 'row',
@@ -74,10 +90,3 @@ const styles = StyleSheet.create({
     }
 });
 
-const globalStyles = StyleSheet.create({
-    border: {
-        borderStyle: 'solid',
-        borderWidth: 1,
-        borderColor: 'red',
-    }
-})
