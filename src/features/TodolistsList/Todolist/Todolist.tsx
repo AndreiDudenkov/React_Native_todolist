@@ -6,7 +6,8 @@ import {TaskStatuses, TaskType} from '../../../api/todolists-api'
 import {FilterValuesType, TodolistDomainType} from '../todolists-reducer'
 import {useDispatch} from 'react-redux'
 import {fetchTasksTC} from '../tasks-reducer'
-import {Text, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
+import {Ionicons} from '@expo/vector-icons';
 
 type PropsType = {
     todolist: TodolistDomainType
@@ -59,14 +60,16 @@ export const Todolist = React.memo(function ({demo = false, ...props}: PropsType
     }
 
     return <View>
-        <EditableSpan value={props.todolist.title} onChange={changeTodolistTitle}/>
-        <Text>Del</Text>
-            {/*<IconButton onClick={removeTodolist} disabled={props.todolist.entityStatus === 'loading'}>*/}
-            {/*    <Delete/>*/}
-            {/*</IconButton>*/}
+        <View style={{flexDirection:'row', alignItems: 'center', justifyContent: 'center'}}>
+            <EditableSpan value={props.todolist.title} onChange={changeTodolistTitle}/>
+            {/*disabled={props.todolist.entityStatus === 'loading'}*/}
+            <TouchableOpacity style={{marginLeft: 25}} onPress={removeTodolist}>
+                <Ionicons name='trash-outline' size={24} color='black'/>
+            </TouchableOpacity>
+            <AddItemForm addItem={addTask} disabled={props.todolist.entityStatus === 'loading'}/>
+        </View>
 
-        <AddItemForm addItem={addTask} disabled={props.todolist.entityStatus === 'loading'}/>
-        <View>
+        <View style={{padding: 8}}>
             {
                 tasksForTodolist.map(t => <Task key={t.id} task={t} todolistId={props.todolist.id}
                                                 removeTask={props.removeTask}

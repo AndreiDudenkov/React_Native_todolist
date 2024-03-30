@@ -1,7 +1,9 @@
 import React, {ChangeEvent, useCallback} from 'react'
 import {EditableSpan} from '../../../../components/EditableSpan/EditableSpan'
 import {TaskStatuses, TaskType} from '../../../../api/todolists-api'
-import {Text} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import Checkbox from 'expo-checkbox';
+import {Ionicons} from '@expo/vector-icons';
 
 type TaskPropsType = {
     task: TaskType
@@ -13,17 +15,21 @@ type TaskPropsType = {
 export const Task = React.memo((props: TaskPropsType) => {
     const onClickHandler = useCallback(() => props.removeTask(props.task.id, props.todolistId), [props.task.id, props.todolistId]);
 
-    const onChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        let newIsDoneValue = e.currentTarget.checked
-        props.changeTaskStatus(props.task.id, newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New, props.todolistId)
+    const onChangeHandler = useCallback((value: boolean) => {
+        props.changeTaskStatus(props.task.id, value ? TaskStatuses.Completed : TaskStatuses.New, props.todolistId)
     }, [props.task.id, props.todolistId]);
 
     const onTitleChangeHandler = useCallback((newValue: string) => {
         props.changeTaskTitle(props.task.id, newValue, props.todolistId)
     }, [props.task.id, props.todolistId]);
 
-    return <div key={props.task.id} className={props.task.status === TaskStatuses.Completed ? 'is-done' : ''}>
-        <Text>Checkbox</Text>
+    return <View key={props.task.id}
+                 style={ props.task.status === TaskStatuses.Completed? {...styles.task, opacity: 0.3} : {...styles.task}}>
+        <Checkbox
+            style={{marginRight: 12}}
+            value={props.task.status === TaskStatuses.Completed}
+            onValueChange={onChangeHandler}
+        />
         {/*<Checkbox*/}
         {/*    checked={props.task.status === TaskStatuses.Completed}*/}
         {/*    color="primary"*/}
@@ -31,10 +37,22 @@ export const Task = React.memo((props: TaskPropsType) => {
         {/*/>*/}
 
         <EditableSpan value={props.task.title} onChange={onTitleChangeHandler}/>
-        <Text>Del</Text>
+        <TouchableOpacity style={{marginLeft: 25}} onPress={() => {}}>
+            <Ionicons name='trash-outline' size={24} color='black'/>
+        </TouchableOpacity>
 
         {/*<IconButton onClick={onClickHandler}>*/}
         {/*    <Delete/>*/}
         {/*</IconButton>*/}
-    </div>
+    </View>
 })
+
+const styles = StyleSheet.create({
+        task: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            padding: 4,
+
+        }
+    }
+)

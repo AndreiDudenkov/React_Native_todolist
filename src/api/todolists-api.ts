@@ -3,7 +3,8 @@ import axios from 'axios'
 const settings = {
     withCredentials: true,
     headers: {
-        'API-KEY': '1cdd9f77-c60e-4af5-b194-659e4ebd5d41'
+        'API-KEY': 'eb40192a-0b00-4aa2-a682-fb5861dbbd01',
+        'cookie': '_ym_uid=1687446157697972310; ASP.NET_SessionId=huu5kwrz3uuzbkskujdxikfj; _ym_d=1711832722; _ym_isad=2; .ASPXAUTH=BA7CAC73F6C96C09ADFE89E7180C4D73363A7E7DEA814B78B86DE9D9F4D2F10E5FD442154BDF9B9D852B579DD99A56F3324698140F40645602DF2CC665CBC699A103CC46D20E2A9B81C867EFE59076418BAD9E71'
     }
 }
 const instance = axios.create({
@@ -93,3 +94,4 @@ type GetTasksResponse = {
     totalCount: number
     items: TaskType[]
 }
+
