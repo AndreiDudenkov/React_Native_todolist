@@ -69,9 +69,9 @@ export default function App() {
 
     return (
         <Provider store={store}>
-        <View style={styles.container}>
-            <Main/>
-        </View>
+            <View style={styles.container}>
+                <Main/>
+            </View>
         </Provider>
     )
 }
@@ -79,25 +79,25 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#004643',
-        alignItems: 'center',
-        justifyContent: 'center',
+        // alignItems: 'center',
+        // justifyContent: 'center',
     },
-    input: {
-        width: '80%',
-        backgroundColor: 'white',
-        fontSize: 18,
-        padding: 4,
-    },
-    taskWrapper: {
-        flexDirection: 'row',
-        backgroundColor: '#fffffe',
-        justifyContent: 'space-between',
-        paddingVertical: 4,
-        paddingHorizontal: 20,
-        marginVertical: 3
-    },
-    button: {
-        backgroundColor: '#f9bc60',
-    }
+    // input: {
+    //     width: '80%',
+    //     backgroundColor: 'white',
+    //     fontSize: 18,
+    //     padding: 4,
+    // },
+    // taskWrapper: {
+    //     flexDirection: 'row',
+    //     backgroundColor: '#fffffe',
+    //     justifyContent: 'space-between',
+    //     paddingVertical: 4,
+    //     paddingHorizontal: 20,
+    //     marginVertical: 3
+    // },
+    // button: {
+    //     backgroundColor: '#f9bc60',
+    // }
 });
 

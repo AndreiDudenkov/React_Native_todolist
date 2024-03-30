@@ -14,7 +14,7 @@ type PropsType = {
 export function Main({demo = false}: PropsType) {
     const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
     return (
-        <View >
+        <View style={{flex:1}}>
             {/*<ErrorSnackbar />*/}
             {/*<AppBar position="static">*/}
             {/*    <Toolbar>*/}
@@ -28,7 +28,7 @@ export function Main({demo = false}: PropsType) {
             {/*    </Toolbar> */}
             {/* { status === 'loading' &&  <LinearProgress /> }*/}
             {/*</AppBar>*/}
-            <View >
+            <View style={{flex:1}} >
                 <TodolistsList demo={demo}/>
             </View>
         </View>

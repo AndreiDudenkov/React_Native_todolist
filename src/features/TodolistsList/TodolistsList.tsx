@@ -15,6 +15,7 @@ import {TaskStatuses} from '../../api/todolists-api'
 import {AddItemForm} from '../../components/AddItemForm/AddItemForm'
 import {Todolist} from './Todolist/Todolist'
 import {Text, View} from 'react-native';
+import {globalStyles} from '../../../global-styles';
 
 
 type PropsType = {
@@ -75,10 +76,8 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     }, [dispatch])
 
 
-    return <>
-        <View style={{padding: 20}}>
-            <AddItemForm addItem={addTodolist}/>
-        </View>
+    return < View style={{}}>
+
         <View>
             {
                 todolists.map(tl => {
@@ -103,5 +102,8 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
                 })
             }
         </View>
-    </>
+        <View style={[globalStyles.border, {paddingHorizontal: 15}]}>
+            <AddItemForm addItem={addTodolist}/>
+        </View>
+    </View>
 }

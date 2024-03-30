@@ -1,28 +1,29 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {Text, View} from 'react-native';
+import {StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {Ionicons} from '@expo/vector-icons';
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
     disabled?: boolean
 }
 
-export const AddItemForm = React.memo(function({addItem, disabled = false}: AddItemFormPropsType) {
+export const AddItemForm = React.memo(function ({addItem, disabled = false}: AddItemFormPropsType) {
     // console.log("AddItemForm called")
 
-    let [title, setTitle] = useState("")
+    let [title, setTitle] = useState('')
     let [error, setError] = useState<string | null>(null)
 
     const addItemHandler = () => {
-        if (title.trim() !== "") {
+        if (title.trim() !== '') {
             addItem(title);
-            setTitle("");
+            setTitle('');
         } else {
-            setError("Title is required");
+            setError('Title is required');
         }
     }
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
+    const onChangeHandler = (title: string) => {
+        setTitle(title)
     }
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -34,9 +35,17 @@ export const AddItemForm = React.memo(function({addItem, disabled = false}: AddI
         }
     }
 
-    return <View>
-        <Text>Input</Text>
-        <Text>Add</Text>
+    return <View style={{flexDirection: 'row'}}>
+        <TextInput
+            style={styles.input}
+            onChangeText={onChangeHandler}
+            value={title}
+        />
+        <View>
+            <TouchableOpacity>
+                <Ionicons name='add' size={24} color='black'/>
+            </TouchableOpacity>
+        </View>
         {/*<TextField variant="outlined"*/}
         {/*           disabled={disabled}*/}
         {/*           error={!!error}*/}
@@ -50,4 +59,11 @@ export const AddItemForm = React.memo(function({addItem, disabled = false}: AddI
         {/*    <AddBox />*/}
         {/*</IconButton>*/}
     </View>
+})
+
+const styles = StyleSheet.create({
+    input: {
+        width: 150,
+        backgroundColor: '#abd1c6',
+    }
 })
