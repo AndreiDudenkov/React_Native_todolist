@@ -102,7 +102,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
                 })
             }
         </View>
-        <View style={[globalStyles.border, {paddingHorizontal: 15}]}>
+        <View style={[{paddingHorizontal: 15}]}>
             <AddItemForm addItem={addTodolist}/>
         </View>
     </View>

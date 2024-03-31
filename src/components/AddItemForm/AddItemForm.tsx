@@ -1,6 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
+import {globalStyles} from '../../../global-styles';
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
@@ -35,15 +36,15 @@ export const AddItemForm = React.memo(function ({addItem, disabled = false}: Add
         }
     }
 
-    return <View style={{flexDirection: 'row'}}>
+    return <View style={[{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', padding: 4}]}>
         <TextInput
-            style={styles.input}
+            style={[globalStyles.input, globalStyles.primaryColor]}
             onChangeText={onChangeHandler}
             value={title}
         />
         <View>
-            <TouchableOpacity>
-                <Ionicons name='add' size={24} color='black'/>
+            <TouchableOpacity onPress={addItemHandler}>
+                <Ionicons name='add' size={24} color={globalStyles.primaryColor.color} />
             </TouchableOpacity>
         </View>
         {/*<TextField variant="outlined"*/}
@@ -62,8 +63,5 @@ export const AddItemForm = React.memo(function ({addItem, disabled = false}: Add
 })
 
 const styles = StyleSheet.create({
-    input: {
-        width: 150,
-        backgroundColor: '#abd1c6',
-    }
+
 })

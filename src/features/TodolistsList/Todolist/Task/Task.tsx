@@ -1,9 +1,10 @@
-import React, {ChangeEvent, useCallback} from 'react'
+import React, {useCallback} from 'react'
 import {EditableSpan} from '../../../../components/EditableSpan/EditableSpan'
 import {TaskStatuses, TaskType} from '../../../../api/todolists-api'
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import Checkbox from 'expo-checkbox';
 import {Ionicons} from '@expo/vector-icons';
+import {globalStyles} from '../../../../../global-styles';
 
 type TaskPropsType = {
     task: TaskType
@@ -24,26 +25,23 @@ export const Task = React.memo((props: TaskPropsType) => {
     }, [props.task.id, props.todolistId]);
 
     return <View key={props.task.id}
-                 style={ props.task.status === TaskStatuses.Completed? {...styles.task, opacity: 0.3} : {...styles.task}}>
-        <Checkbox
-            style={{marginRight: 12}}
-            value={props.task.status === TaskStatuses.Completed}
-            onValueChange={onChangeHandler}
-        />
-        {/*<Checkbox*/}
-        {/*    checked={props.task.status === TaskStatuses.Completed}*/}
-        {/*    color="primary"*/}
-        {/*    onChange={onChangeHandler}*/}
-        {/*/>*/}
+                 style={props.task.status === TaskStatuses.Completed ? {
+                     ...styles.task,
+                     opacity: 0.3
+                 } : {...styles.task}}>
+        <View style={{flexDirection: 'row'}}>
+            <Checkbox
+                style={{marginRight: 12}}
+                value={props.task.status === TaskStatuses.Completed}
+                onValueChange={onChangeHandler}
+                color={globalStyles.primaryColor.color}
+            />
+            <EditableSpan value={props.task.title} onChange={onTitleChangeHandler}/>
+        </View>
 
-        <EditableSpan value={props.task.title} onChange={onTitleChangeHandler}/>
-        <TouchableOpacity style={{marginLeft: 25}} onPress={() => {}}>
-            <Ionicons name='trash-outline' size={24} color='black'/>
+        <TouchableOpacity style={{marginLeft: 25}} onPress={onClickHandler}>
+            <Ionicons name='trash-outline' size={24} color={globalStyles.primaryColor.color}/>
         </TouchableOpacity>
-
-        {/*<IconButton onClick={onClickHandler}>*/}
-        {/*    <Delete/>*/}
-        {/*</IconButton>*/}
     </View>
 })
 
@@ -52,6 +50,7 @@ const styles = StyleSheet.create({
             flexDirection: 'row',
             alignItems: 'center',
             padding: 4,
+            justifyContent: 'space-between'
 
         }
     }
