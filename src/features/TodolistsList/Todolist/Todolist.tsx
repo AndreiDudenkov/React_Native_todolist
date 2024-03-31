@@ -8,6 +8,7 @@ import {useDispatch} from 'react-redux'
 import {fetchTasksTC} from '../tasks-reducer'
 import {Text, TouchableOpacity, View} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
+import {globalStyles} from '../../../../global-styles';
 
 type PropsType = {
     todolist: TodolistDomainType
@@ -59,15 +60,18 @@ export const Todolist = React.memo(function ({demo = false, ...props}: PropsType
         tasksForTodolist = props.tasks.filter(t => t.status === TaskStatuses.Completed)
     }
 
-    return <View>
-        <View style={{flexDirection:'row', alignItems: 'center', justifyContent: 'center'}}>
-            <EditableSpan value={props.todolist.title} onChange={changeTodolistTitle}/>
-            {/*disabled={props.todolist.entityStatus === 'loading'}*/}
-            <TouchableOpacity style={{marginLeft: 25}} onPress={removeTodolist}>
-                <Ionicons name='trash-outline' size={24} color='black'/>
-            </TouchableOpacity>
+    return <View style={[globalStyles.container_second]}>
+        <View >
+            <View style={[ {flexDirection: 'row', alignItems: 'center', justifyContent: 'center',padding: 4}]}>
+                <EditableSpan value={props.todolist.title} onChange={changeTodolistTitle}/>
+                {/*disabled={props.todolist.entityStatus === 'loading'}*/}
+                <TouchableOpacity style={{marginLeft: 25}} onPress={removeTodolist}>
+                    <Ionicons name='trash-outline' size={24} color={globalStyles.primaryColor.color}/>
+                </TouchableOpacity>
+            </View>
             <AddItemForm addItem={addTask} disabled={props.todolist.entityStatus === 'loading'}/>
         </View>
+
 
         <View style={{padding: 8}}>
             {

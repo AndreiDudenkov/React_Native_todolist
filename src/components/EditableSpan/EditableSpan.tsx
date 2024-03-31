@@ -1,6 +1,7 @@
 import React, {ChangeEvent, useState} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
+import {globalStyles} from '../../../global-styles';
 
 type EditableSpanPropsType = {
     value: string
@@ -27,7 +28,7 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
     return editMode
         ? <View style={{flexDirection: 'row'}}>
             <TextInput
-                style={styles.input}
+                style={[globalStyles.input, globalStyles.primaryColor]}
                 onChangeText={changeTitle}
                 value={title}
             />
@@ -37,15 +38,11 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
         </View>
         :
         <Text
-            style={{fontSize: 18, fontWeight: '500'}}
+            style={[globalStyles.primaryColor, {fontSize: 18, fontWeight: '500'}] }
             onLongPress={activateEditMode}
-            // onDoubleClick={activateEditMode}
         >{props.value}</Text>
 });
 // <TextField value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode} />
 const styles = StyleSheet.create({
-    input: {
-        width: 150,
-        backgroundColor: '#abd1c6',
-    }
+
 })
