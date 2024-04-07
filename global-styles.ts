@@ -5,7 +5,7 @@ export const globalStyles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#23bacb',
     },
-    container_second:{
+    container_second: {
         backgroundColor: '#94d3de',
         borderRadius: 15
     },
@@ -14,14 +14,19 @@ export const globalStyles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'red',
     },
+    center: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     input: {
         width: 150,
         backgroundColor: '#1DAA66',
         borderRadius: 15,
         paddingHorizontal: 10
     },
-    primaryColor:{
-        color: "#F4FAFB"
+    primaryColor: {
+        color: '#F4FAFB'
     }
 
 })
